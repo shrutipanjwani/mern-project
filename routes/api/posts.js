@@ -210,12 +210,12 @@ router.post('/comment/:id', [
 // @desc    Delete Comment
 // @access  Private
 
-router.delete('comment/:id/:comment_id', auth, async(req, res) => {
+router.delete('/comment/:id/:comment_id', auth, async(req, res) => {
 	try {
 		const post = await Post.findById(req.params.id);
 
 		//Pull out comment 
-		const comment = post.comments.find(comment.id === req.params.comment_id);
+		const comment = post.comments.find(comment => comment.id === req.params.comment_id);
 
 		//Make sure comment exists
 		if (!comment) {

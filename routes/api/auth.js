@@ -9,15 +9,15 @@ const { check, validationResult } = require('express-validator/check');
 const User = require('../../models/User');
 
 // @route   GET api/auth
-// @desc    Test route
-// @access  Public
+// @desc    Get user by token
+// @access  Private
 router.get('/', auth, async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id).select('-password');
 		res.json(user);	
 	} catch(err) {
 		console.error(err.message);
-		res.status(500).send('Server Error')
+		res.status(500).send('Server Error');
 	}
 });
 
@@ -68,7 +68,7 @@ router.post(
 	jwt.sign(
 		payload, 
 		config.get('jwtSecret'),
-		{ expiresIn: 360000 },
+		{ expiresIn: '5 days' },
 		(err, token) => {
 			if (err) throw err;
 			res.json({ token });

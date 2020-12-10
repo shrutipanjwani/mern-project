@@ -30,7 +30,7 @@ export const loadUser = () => async dispatch => {
 			type: AUTH_ERROR
 		});
 	}
-}
+};
 
 // Register User
 export const register = ({ name, email, password }) => async dispatch => {
@@ -62,10 +62,10 @@ export const register = ({ name, email, password }) => async dispatch => {
 			type: REGISTER_FAIL
 		});
 	}
-}
+};
 
 // Login User
-export const login = ( email, password ) => async dispatch => {
+export const login = (email, password) => async dispatch => {
 	const config = {
 		headers: {
 			'Content-Type': 'application/json'

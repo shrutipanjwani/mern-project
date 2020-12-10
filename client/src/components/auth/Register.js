@@ -4,7 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 import PropTypes from 'prop-types';
-import axios from 'axios';   
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
@@ -22,7 +21,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 	const onSubmit = async e => {
 		console.log('Form data', e)
 		e.preventDefault();
-		if (password != password2) {
+		if (password !== password2) {
 			setAlert('Password do not match', 'danger');
 		} else {
 			register({ name, email, password });

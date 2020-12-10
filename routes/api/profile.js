@@ -23,6 +23,7 @@ router.get('/me', auth, async (req, res) => {
 			return res.status(400).json({ msg: 'There is no profile for this user'});
 		}
 
+		res.json(profile);
 	} catch(err){
 		console.error(err.message);
 		res.status(500).send('Server Error');
@@ -50,6 +51,7 @@ router.post('/',
 			return res.status(400).json({ errors: errors.array() });
 		}
 
+		//destructure the request
 		const {
 			company,
 			website,
@@ -168,27 +170,6 @@ router.get('/user/:user_id', async (req, res) => {
 	}
 });
 
-// @route   DELETE api/profile
-// @desc    Delete profile, user & posts
-// @access  Private
-router.delete('/', auth, async (req, res) => {
-	try{
-		// @todo - Remove users posts
-		
-		// Remove Profile
-		await Profile.findOneAndRemove({ user: req.user.id });
-
-		// Remove User
-		await User.findOneAndRemove({ _id: req.user.id });
-
-		res.json({ msg: 'User deleted'});
-	}
-	catch (err) {
-		console.error(err.message);
-		res.status(500).send('Server Error');
-	}
-});
-
 // @route   PUT api/profile/experience
 // @desc    Add profile experience
 // @access  Private
@@ -232,7 +213,7 @@ router.put('/experience',
 			to,
 			current,
 			description
-		}
+		};
 
 		try {
 			const profile = await Profile.findOne({ user: req.user.id });
